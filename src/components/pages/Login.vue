@@ -45,8 +45,20 @@ export default {
           this.labelButton = "Login";
           this.disabledButton = false;
 
-          console.log(result);
-        })
+          localStorage.setItem('accessToken', result.token);
+          localStorage.setItem('userName', result.name);
+          localStorage.setItem('userEmail', result.email);
+
+          this.$emit("token", result.token);
+
+        }).catch(e => {
+          console.log(e);
+          if(e && e.body && e.body.error){
+            this.msgError = e.body.error;
+          } else {
+            this.msgError = "Não foi possivel autenticar, tente novamente"
+          }
+        });
     }
   }
 }
