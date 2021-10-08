@@ -1,8 +1,8 @@
 <template>
   <div class="container-login">
     <img class="logo" src="../../assets/images/logo.svg" alt="logo fiap"/>
-    <p>{{msgError}}</p>
     <form>
+      <p>{{msgError}}</p>
       <div class="input">
         <img src="../../assets/images/mail.svg" alt="email" />
         <input type="email" placeholder="Email" v-model="body.email">
@@ -20,7 +20,7 @@
 export default {
   data() {
     return {
-      msgError: "API não configurada",
+      msgError: "",
       labelButton: "Login",
       disabledButton: false,
       body: {
@@ -32,7 +32,7 @@ export default {
   methods: {
     doLogin() {
       if(!this.body.email || !this.body.password) {
-        this.msgError = "favor informar usuario e senha"
+        this.msgError = "Favor informar usuario e senha"
         return;
       }
 
@@ -42,17 +42,17 @@ export default {
       this.$http.post("login", this.body)
         .then(response => response.json())
         .then(result => {
-        this.labelButton = "Login";
-        this.disabledButton = false;
+          this.labelButton = "Login";
+          this.disabledButton = false;
 
-        console.log(result);
-      })
+          console.log(result);
+        })
     }
   }
 }
 
 </script>
 
-<style>
+<style lang="scss" rel="stylesheet/scss">
 
 </style>

@@ -16,7 +16,16 @@ module.exports = {
           'vue-style-loader',
           'css-loader'
         ],
-      },      {
+      },
+      {
+        test: /\.s[ac]ss$/i,
+        use: [
+          "style-loader",
+          "css-loader",
+          "sass-loader",
+        ],
+      },
+      {
         test: /\.vue$/,
         loader: 'vue-loader',
         options: {
@@ -31,7 +40,7 @@ module.exports = {
         exclude: /node_modules/
       },
       {
-        test: /\.(png|jpg|gif|svg)$/,
+        test: /\.(png|jpg|gif|svg|otf)$/,
         loader: 'file-loader',
         options: {
           name: '[name].[ext]?[hash]'
