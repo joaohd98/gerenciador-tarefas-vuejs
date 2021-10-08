@@ -1,18 +1,19 @@
 <template>
-  <div>
-    <h1>Home</h1>
-    <button type="button" @click="leave()">Sair</button>
+  <div class="container-home">
+    <Header @doLogout="logout" />
+    <Footer />
   </div>
 </template>
 
 <script>
-export default {
-  methods: {
-    leave() {
-      localStorage.removeItem('accessToken');
-      localStorage.removeItem('userName');
-      localStorage.removeItem('userEmail');
 
+import Header from "../shared/Header";
+import Footer from "../shared/Footer";
+
+export default {
+  components: {Footer, Header},
+  methods: {
+    logout() {
       this.$emit("token", "");
     }
   }
