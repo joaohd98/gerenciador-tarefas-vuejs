@@ -1,13 +1,13 @@
 <template>
   <div id="main">
-    <home v-if="token" @token="setToken" />
-    <login v-else @token="setToken" />
+    <Home v-if="token" @token="setToken" />
+    <Login v-else @token="setToken" />
   </div>
 </template>
 
 <script>
-import login from "./components/pages/login";
-import home from "./components/pages/home";
+import Login from "./components/pages/login";
+import Home from "./components/pages/home";
 
 export default {
   data() {
@@ -16,8 +16,8 @@ export default {
     }
   },
   components: {
-    login,
-    home,
+    Login,
+    Home,
   },
   methods: {
     setToken(t) {

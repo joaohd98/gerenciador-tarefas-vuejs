@@ -1,15 +1,17 @@
 
 <template>
-  <div class="container-item" :class="getClassFinished">
-    <img :src="require('../../assets/images/' + getImageSource)" :alt="getImageAlt" />
+  <div class="container-item" :class="getClassActive">
+    <img :src="getImageSource" :alt="getImageAlt" />
     <div>
-      <p :class={getClassActive}>{task.name}</p>
+      <p :class="getClassFinished">{task.name}</p>
       <span>{getDate(task.finishDate, task.finishPrevisionDate)}</span>
     </div>
   </div>
 </template>
 
 <script>
+import moment from "moment";
+
 export default {
   props: {
     task: {
@@ -21,24 +23,24 @@ export default {
   computed: {
     getClassFinished() {
       if(this.task && this.task.finishDate) {
-        return "concluido";
+        return "finished";
       }
 
       return "";
     },
     getClassActive() {
       if(this.task && this.task.finishDate) {
-        return "ativo";
+        return "active";
       }
 
       return "";
     },
     getImageSource() {
-      if(this.task && this.task.finishDate) {
-        return "check.svg";
+      if(this.task && this.task.finishDate){
+        return require("../../assets/images/check.svg");
       }
 
-      return "uncheck.svg";
+      return require("../../assets/images/uncheck.svg");
     },
     getImageAlt() {
       if(this.task && this.task.finishDate) {
@@ -47,6 +49,15 @@ export default {
 
       return "Tarefa não concluida";
     },
+    getDateText(){
+      if(this.task && this.task.finishDate){
+        return `Concluído em: ${moment(this.task.finishDate).format('DD/MM/yyyy')}`;
+      }
+      if(this.tasks && this.task.finishPrevisionDate){
+        return `Previsão de conclusão em: ${moment(this.task.finishPrevisionDate).format('DD/MM/yyyy')}`;
+      }
+      return 'Previsão de conclusão em:';
+    }
   }
 }
 

@@ -18,6 +18,7 @@
 import Header from "../shared/Header";
 import Footer from "../shared/Footer";
 import Filters from "../shared/Filters";
+import List from "../shared/List";
 
 export default {
   data() {
@@ -27,7 +28,10 @@ export default {
       status: 0,
     }
   },
-  components: {Filters, Footer, Header},
+  created(){
+    this.getTasksWithFilters();
+  },
+  components: {Filters, Footer, List, Header},
   methods: {
     logout() {
       this.$emit("token", "");
@@ -41,6 +45,25 @@ export default {
     setStatus(s) {
       this.status = s;
     },
+    getTasksWithFilters(){
+      let filters = '?status='+this.status;
+
+      if(this.finishPrevisionStart){
+        filters += '&finishPrevisionStart='+this.finishPrevisionStart
+      }
+
+      if(this.finishPrevisionEnd){
+        filters += '&finishPrevisionEnd='+this.finishPrevisionEnd
+      }
+
+      const token = localStorage.getItem('accessToken')
+
+      this.$http.get('task' + filters, {headers : {'Authorization' : 'Bearer ' + token}})
+        .then(r => r.json())
+        .then(result => {
+          this.tasks = result;
+        });
+    }
   }
 }
 
