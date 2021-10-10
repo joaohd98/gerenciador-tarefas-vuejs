@@ -12,6 +12,9 @@
         <input type="password" placeholder="Senha" v-model="body.password"/>
       </div>
       <button type="button" @click="doLogin()">{{labelButton}}</button>
+      <div class="register-container">
+        <button class="button-register" @click="$emit('goRegister')">Cadastrar</button>
+      </div>
     </form>
   </div>
 </template>
