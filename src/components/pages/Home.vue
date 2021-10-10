@@ -9,7 +9,7 @@
       @setFinishPrevisionEnd="setFinishPrevisionEnd"
       @setStatus="setStatus"
     />
-    <List :tasks="tasks"/>
+    <List :tasks="tasks" @doRefresh="getTasksWithFilters"/>
     <Footer @openModal="openModalAdd" />
     <b-modal v-model="isModalAddOpen" hide-footer hide-header>
       <ModalAdd @doSave="doSave" @closeModal="closeModalAdd" />
