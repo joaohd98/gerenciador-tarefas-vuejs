@@ -44,39 +44,34 @@ export default {
       this.isLoading = true;
       this.labelButton = "Carregando...";
 
-      try {
-        const {name, finishPrevisionDate} = this;
+      const {name, finishPrevisionDate} = this;
 
-        if (!name || !finishPrevisionDate) {
-          this.msgError = 'Favor preencher o nome e data de previsão';
+      if (!name || !finishPrevisionDate) {
+        this.msgError = 'Favor preencher o nome e data de previsão';
+        this.isLoading = false;
+        this.labelButton = "Login";
+        return;
+      }
+
+      this.executeRequest(name, finishPrevisionDate).then(result => {
+        if (!result || !result.msg) {
+          this.msgError = 'Nao foi possivel salvar a tarefa!';
           this.isLoading = false;
           this.labelButton = "Login";
-          return;
+          return
         }
 
-        this.executeRequest(name, finishPrevisionDate).then(result => {
-          if (!result || !result.msg) {
-            this.msgError = 'Nao foi possivel salvar a tarefa!';
-            this.isLoading = false;
-            this.labelButton = "Login";
-            return
-          }
-
-          this.$emit("doSave", "");
-        }).catch(() => {
-          throw Error();
-        });
-
-      } catch (e) {
+        this.$emit("doSave", "");
+      }).catch(e => {
         this.isLoading = false;
         this.labelButton = "Login";
 
-        if (e.response.data.error) {
-          this.msgError = e.response.data.error;
+        if (e.body.error) {
+          this.msgError = e.body.error;
         } else {
           this.msgError = 'Ocorreu erro ao adicionar tarefa tente novamente!';
         }
-      }
+      });
     }
   }
 }

@@ -84,10 +84,10 @@ export default {
         this.isLoading = false;
         this.labelButton = "Salvar alterações";
 
-        if (e.error) {
-          this.msgError = e.response.data.error;
+        if (e.body.error) {
+          this.msgError = e.body.error;
         } else {
-          this.msgError = 'Ocorreu erro ao adicionar tarefa tente novamente!';
+          this.msgError = 'Ocorreu erro ao atualizar tarefa tente novamente!';
         }
       });
     },
@@ -98,10 +98,15 @@ export default {
 
       this.executeRequestDelete().then(() => {
         this.$emit("doRefresh", "");
-      }).catch(() => {
-        this.msgError = 'Nao foi possivel deleter a tarefa!';
+      }).catch(e => {
         this.isLoading = false;
         this.labelButton = "Salvar alterações";
+
+        if (e.body.error) {
+          this.msgError = e.body.error;
+        } else {
+          this.msgError = 'Nao foi possivel deleter a tarefa!';
+        }
       });
     }
   }
