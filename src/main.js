@@ -8,7 +8,6 @@ import './styles/app.scss'
 Vue.use(VueResource);
 Vue.use(VueBootstrap);
 
-Vue.use(VueResource);
 Vue.http.options.root = 'http://localhost:3000/api/';
 
 new Vue({

@@ -1,6 +1,6 @@
 <template>
   <div class="container-home">
-    <Header @doLogout="logout" />
+    <Header @doLogout="logout" @openModal="openModalAdd" />
     <Filters
       :finishPrevisionStart="finishPrevisionStart"
       :finishPrevisionEnd="finishPrevisionEnd"
@@ -9,7 +9,11 @@
       @setFinishPrevisionEnd="setFinishPrevisionEnd"
       @setStatus="setStatus"
     />
-    <Footer />
+    <List :tasks="tasks"/>
+    <Footer @openModal="openModalAdd" />
+    <b-modal v-model="isModalAddOpen" hide-footer hide-header>
+      <ModalAdd @doSave="doSave" @closeModal="closeModalAdd" />
+    </b-modal>
   </div>
 </template>
 
@@ -19,19 +23,22 @@ import Header from "../shared/Header";
 import Footer from "../shared/Footer";
 import Filters from "../shared/Filters";
 import List from "../shared/List";
+import ModalAdd from "../shared/ModalAdd";
 
 export default {
   data() {
     return {
+      tasks: [],
       finishPrevisionStart: "",
       finishPrevisionEnd: "",
       status: 0,
+      isModalAddOpen: false,
     }
   },
   created(){
     this.getTasksWithFilters();
   },
-  components: {Filters, Footer, List, Header},
+  components: {Filters, Footer, List, Header, ModalAdd},
   methods: {
     logout() {
       this.$emit("token", "");
@@ -63,6 +70,16 @@ export default {
         .then(result => {
           this.tasks = result;
         });
+    },
+    openModalAdd() {
+      this.isModalAddOpen = true;
+    },
+    closeModalAdd() {
+      this.isModalAddOpen = false;
+    },
+    doSave() {
+      this.isModalAddOpen = false;
+      this.getTasksWithFilters();
     }
   }
 }

@@ -53,6 +53,10 @@ export default {
 
         }).catch(e => {
           console.log(e);
+
+          this.labelButton = "Login";
+          this.disabledButton = false;
+
           if(e && e.body && e.body.error){
             this.msgError = e.body.error;
           } else {

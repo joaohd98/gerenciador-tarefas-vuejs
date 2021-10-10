@@ -1,7 +1,7 @@
 <template>
   <div class="container-header">
       <img src="../../assets/images/logo.svg" alt="Logo Fiap" class="logo"/>
-      <button onClick={showModal}>
+      <button @click={openModal}>
         <span>+</span> Adicionar Tarefa
       </button>
       <div class="mobile">
@@ -30,6 +30,9 @@ export default {
 
       this.$emit("doLogout", "");
     },
+    openModal() {
+      this.$emit("openModal");
+    }
   },
 }
 

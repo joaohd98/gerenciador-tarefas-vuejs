@@ -1,8 +1,6 @@
 @import './config.scss';
 
 .container-modal {
-  margin-top: 150px;
-
   button {
     width: 40%;
     height: 50px;
@@ -57,12 +55,10 @@
     justify-content: center;
     padding: 0;
   }
-  .modal-content {
-    border-radius: 15px;
-  }
 
   .modal-footer {
     border-top-width: 0;
+    margin-top: 20px;
   }
 
   @media screen and (min-width:1024px) {

@@ -1,7 +1,7 @@
 
 <template>
   <div class="container-footer">
-    <button>
+    <button @click="openModal">
       <img src="../../assets/images/add.svg" alt="adicionar" /> Adicionar uma Tarefa
     </button>
     <span>© Copyright {{fullYear}}. Todos os direitos reservados.</span>
@@ -10,6 +10,11 @@
 
 <script>
 export default {
+  methods: {
+    openModal() {
+      this.$emit("openModal", "");
+    },
+  },
   computed: {
     fullYear() {
       return new Date().getFullYear()

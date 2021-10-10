@@ -1,7 +1,7 @@
 <template>
   <div class="container-list" :class="getClassEmpty">
-    <Item v-if="listHasItems" v-for="task of tasks" :task="task" />
-    <div v-if="!listHasItems">
+    <Item v-if="listHasItems" v-for="task of tasks" :task="task" v-bind:key="task._id" />
+    <div class="empty-list" v-if="!listHasItems">
       <img src="../../assets/images/empty-list.svg" alt="Nenhuma tarefa encontrada" />
       <p>Você ainda não possui tarefas cadastradas!</p>
     </div>
